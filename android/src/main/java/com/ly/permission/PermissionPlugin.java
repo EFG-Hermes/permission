@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -148,7 +149,16 @@ public class PermissionPlugin implements MethodCallHandler, PluginRegistry.Reque
           intList.add(0);
         }
       }
-      result.success(intList);
+      if(result !=null)
+      {
+        try{
+          result.success(intList);
+        }catch (IllegalStateException ex)
+        {
+          Log.d("PermissionHandler", "illegal state exception handled"+ ex.getMessage());
+        }
+
+      }
     }
     return true;
   }
